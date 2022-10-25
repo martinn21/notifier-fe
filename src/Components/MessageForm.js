@@ -1,6 +1,8 @@
 import React from 'react'
 import MessageTextArea from "./MessageTextArea";
 import CustomListDropDown from "./CategoriesDropdown";
+import FormStyle from "./Form.module.css"
+
 const ContactForm = () => {
     const [formStatus, setFormStatus] = React.useState('Send')
     const onSubmit = async (e) => {
@@ -13,15 +15,12 @@ const ContactForm = () => {
         }
         console.log(conFom)
         try {
-            let res = await fetch('https://x9pjbaafwf.execute-api.us-west-1.amazonaws.com/dev/notifications', {
+            let res = await fetch('https://x9pjbaafwf.execute-api.us-west-1.amazonaws.com/dev/notification', {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(conFom),
             });
-            console.log('response from the backend')
-            console.log(res)
             let resJson = await res.json();
-            console.log('response in json format')
             console.log(resJson)
             // if (res.status === 200) {
             //     setFormStatus('Send...')
@@ -35,7 +34,7 @@ const ContactForm = () => {
     return (
         <div className="container mt-5">
             <h2>Frontend challenge</h2>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className={FormStyle.form}>
                 <CustomListDropDown />
                 <MessageTextArea />
                 <div className="container mt-4">
